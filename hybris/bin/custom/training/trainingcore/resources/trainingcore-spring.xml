@@ -579,4 +579,12 @@
 		<property name="modelService" ref="modelService"/>
 	</bean>
 
+
+
+	<!-- Training AfterSaveEvent -->
+	<bean id="trainingAfterSaveListener" class="org.training.core.training.afterSaveListener.TrainingAfterSaveListener">
+		<property name="modelService" ref="modelService"/>
+	</bean>
+
+
 </beans>
