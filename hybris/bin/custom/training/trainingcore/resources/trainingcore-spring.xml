@@ -22,6 +22,9 @@
 	<bean id="acceleratorCoreSystemSetup" class="org.training.core.setup.CoreSystemSetup"
 	       parent="abstractCoreSystemSetup"/>
 
+	<bean id="trainingCoreSystemSetup" class="org.training.core.setup.TrainingSystemSetup"
+		  parent="abstractCoreSystemSetup"/>
+
 	<!-- Solr field value providers -->
 
 	<bean id="volumeAwareProductPriceValueProvider" class="org.training.core.search.solrfacetsearch.provider.impl.VolumeAwareProductPriceValueProvider"  parent="abstractPropertyFieldValueProvider">
@@ -586,5 +589,13 @@
 		<property name="modelService" ref="modelService"/>
 	</bean>
 
+
+
+	<!-- Training CronJob -->
+	<bean id="trainingJobPerformable" class="org.training.core.training.jobPerformable.TrainingJobPerformable">
+		<property name="modelService" ref="modelService"/>
+		<property name="sessionService" ref="sessionService"/>
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+	</bean>
 
 </beans>

@@ -1,0 +1,2 @@
+INSERT_UPDATE CronJob;code[unique=true];job(code);sessionLanguage(isocode);
+                     ;trainingCronJob;trainingJobPerformable;en;
