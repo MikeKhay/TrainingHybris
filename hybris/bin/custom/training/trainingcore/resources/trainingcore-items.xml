@@ -32,6 +32,20 @@
         <!-- Add your item definitions here -->
 
 
+        <itemtype code="TrainingItem"
+                  autocreate="true"
+                  generate="true"
+                  jaloclass="org.training.core.jalo.TrainingItem">
+            <deployment table="TrainingItem" typecode="10102" />
+            <attributes>
+                <attribute qualifier="trainingAttribute" type="java.lang.String">
+                    <modifiers read="true" write="true" optional="true" search="true"/>
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+
+
         <!-- TypeGroups are for structure of this file only -->
 
         <typegroup name="Apparel">
@@ -103,6 +117,5 @@
                 </attributes>
             </itemtype>
         </typegroup>
-
     </itemtypes>
 </items>
