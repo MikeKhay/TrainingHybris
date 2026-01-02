@@ -25,8 +25,8 @@ public class TrainingInterceptorService {
 //        System.out.println("modelService.get()");
 //        TrainingItemModel model2 = modelService.get(model);
 
-        System.out.println("modelService.remove()");
-        modelService.remove(model);
+//        System.out.println("modelService.remove()");
+//        modelService.remove(model);
 
     }
 
