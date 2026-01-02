@@ -538,4 +538,45 @@
 		<property name="itemCleanupHooks" ref="csTicketRetentionHooks"/>
 		<property name="ticketBusinessService" ref="ticketBusinessService"/>
 	</bean>
+
+	<!-- Training Interceptors -->
+	<bean id="trainingInitDefaultsInterceptor" class="org.training.core.training.interceptor.TrainingInitDefaultsInterceptor"/>
+
+	<bean id="trainingLoadInterceptor" class="org.training.core.training.interceptor.TrainingLoadInterceptor"/>
+
+	<bean id="trainingPrepareInterceptor" class="org.training.core.training.interceptor.TrainingPrepareInterceptor"/>
+
+	<bean id="trainingRemoveInterceptor" class="org.training.core.training.interceptor.TrainingRemoveInterceptor"/>
+
+	<bean id="trainingValidateInterceptor" class="org.training.core.training.interceptor.TrainingValidateInterceptor"/>
+
+	<bean id="trainingInitDefaultsInterceptorMapping" class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="trainingInitDefaultsInterceptor"/>
+		<property name="typeCode" value="TrainingItem"/>
+	</bean>
+
+	<bean id="trainingLoadInterceptorMapping" class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="trainingLoadInterceptor"/>
+		<property name="typeCode" value="TrainingItem"/>
+	</bean>
+
+	<bean id="trainingPrepareInterceptorMapping" class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="trainingPrepareInterceptor"/>
+		<property name="typeCode" value="TrainingItem"/>
+	</bean>
+
+	<bean id="trainingRemoveInterceptorMapping" class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="trainingRemoveInterceptor"/>
+		<property name="typeCode" value="TrainingItem"/>
+	</bean>
+
+	<bean id="trainingValidateInterceptorMapping" class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="trainingValidateInterceptor"/>
+		<property name="typeCode" value="TrainingItem"/>
+	</bean>
+
+	<bean id="trainingInterceptorService" class="org.training.core.training.interceptor.TrainingInterceptorService">
+		<property name="modelService" ref="modelService"/>
+	</bean>
+
 </beans>
