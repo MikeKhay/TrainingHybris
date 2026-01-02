@@ -1,0 +1,60 @@
+## Hybris
+#build-tools
+#hybris-sbg
+#licenses
+#SIGNATURE.SMF
+#
+#hybris/bin/modules/
+#hybris/bin/platform/
+#
+#hybris/config/
+#hybris/roles/
+#hybris/temp/
+#hybris/log/
+#hybris/data/
+#
+#
+## IDE
+#.idea/
+#*.iml
+#.classpath
+#.project
+#.settings/
+#
+## OS
+#.DS_Store
+#
+## Build
+#target/
+#
+##Installer
+#/installer
+#!/installer/recipes/
+#/installer/recipes/*
+#!/installer/recipes/custom/
+
+
+# 1. Ігноруємо абсолютно все
+/*
+
+# 2. Дозволяємо папку hybris (нова умова)
+!/hybris/
+
+hybris/bin/modules/
+hybris/bin/platform/
+
+hybris/config/
+hybris/roles/
+hybris/temp/
+hybris/log/
+hybris/data/
+
+# 3. Дозволяємо шлях до custom (як було раніше)
+!/installer/
+/installer/*
+!/installer/recipes/
+/installer/recipes/*
+!/installer/recipes/custom/
+
+# Дозволяємо сам .gitignore
+!/.gitignore
