@@ -16,7 +16,7 @@ public class TrainingAfterSaveListener implements AfterSaveListener {
     @Override
     public void afterSave(Collection<AfterSaveEvent> events) {
 
-        System.out.println("TrainingAfterSaveListener");
+//        System.out.println("TrainingAfterSaveListener");
 
         for (final AfterSaveEvent event : events)
         {
