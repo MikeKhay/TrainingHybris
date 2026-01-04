@@ -618,7 +618,6 @@
 
 
 
-
 	<!-- Training Task -->
 	<bean id="trainingTaskRunner" class="org.training.core.training.task.TrainingTaskRunner">
 	</bean>
@@ -626,6 +625,19 @@
 	<bean id="trainingTaskService" class="org.training.core.training.task.TrainingTaskService">
 		<property name="modelService" ref="modelService"/>
 		<property name="taskService" ref="taskService"/>
+	</bean>
+
+
+
+	<!-- Training Cluster Aware Event -->
+	<bean id="trainingClusterAwareService"
+		  class="org.training.core.training.clusterAwareEvent.TrainingClusterAwareService">
+		<property name="eventService" ref="eventService"/>
+	</bean>
+
+	<bean id="trainingClusterAwareListener"
+		  class="org.training.core.training.clusterAwareEvent.TrainingClusterAwareListener"
+		  parent="abstractEventListener">
 	</bean>
 
 </beans>

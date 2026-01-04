@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.training.core.training.businessProcess.TrainingBusinessProcessService;
+import org.training.core.training.clusterAwareEvent.TrainingClusterAwareService;
 import org.training.core.training.interceptor.TrainingInterceptorService;
 import org.training.core.training.task.TrainingTaskService;
 
@@ -24,6 +25,9 @@ public class TrainingTestController extends AbstractPageController {
     @Resource(name = "trainingTaskService")
     private TrainingTaskService trainingTaskService;
 
+    @Resource(name = "trainingClusterAwareService")
+    private TrainingClusterAwareService trainingClusterAwareService;
+
     @RequestMapping(method = RequestMethod.GET, value = "/test")
     public String test(
             @RequestParam(value = "id", defaultValue = "0", required = false) final int id
@@ -40,6 +44,8 @@ public class TrainingTestController extends AbstractPageController {
             trainingBusinessProcessService.triggerEventWithBusinessProcessCode();
         } else if (id == 4) {
             trainingTaskService.createTask();
+        } else if (id == 5) {
+            trainingClusterAwareService.publishEvent();
         }
 
         return REDIRECT_PREFIX + ROOT;
