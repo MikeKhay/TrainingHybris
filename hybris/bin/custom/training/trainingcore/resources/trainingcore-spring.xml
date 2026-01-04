@@ -598,4 +598,22 @@
 		<property name="flexibleSearchService" ref="flexibleSearchService"/>
 	</bean>
 
+
+
+	<!-- Training BusinessProcess -->
+	<bean id="action1" class="org.training.core.training.businessProcess.Action1" parent="abstractAction"/>
+	<bean id="action2" class="org.training.core.training.businessProcess.Action2" parent="abstractAction"/>
+	<bean id="action3" class="org.training.core.training.businessProcess.Action3" parent="abstractAction"/>
+	<bean id="action4" class="org.training.core.training.businessProcess.Action4" parent="abstractAction"/>
+
+	<bean id="trainingProcess"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/trainingcore/processes/trainingBusinessProcess.xml"/>
+	</bean>
+
+	<bean id="trainingBusinessProcessService" class="org.training.core.training.businessProcess.TrainingBusinessProcessService">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+	</bean>
+
 </beans>

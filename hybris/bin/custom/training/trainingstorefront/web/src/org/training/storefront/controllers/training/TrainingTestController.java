@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.training.core.training.businessProcess.TrainingBusinessProcessService;
 import org.training.core.training.interceptor.TrainingInterceptorService;
 
 import javax.annotation.Resource;
@@ -15,6 +16,9 @@ public class TrainingTestController extends AbstractPageController {
 
     @Resource(name = "trainingInterceptorService")
     private TrainingInterceptorService trainingInterceptorService;
+
+    @Resource(name = "trainingBusinessProcessService")
+    private TrainingBusinessProcessService trainingBusinessProcessService;
 
     @RequestMapping(method = RequestMethod.GET, value = "/test")
     public String test(
@@ -26,6 +30,10 @@ public class TrainingTestController extends AbstractPageController {
 
         if (id == 1) {
             trainingInterceptorService.test();
+        } else if (id == 2) {
+            trainingBusinessProcessService.createTrainingBusinessProcess();
+        } else if (id == 3) {
+            trainingBusinessProcessService.triggerEventWithBusinessProcessCode();
         }
 
         return REDIRECT_PREFIX + ROOT;
