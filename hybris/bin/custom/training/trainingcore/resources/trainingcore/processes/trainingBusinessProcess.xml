@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<process
+        xmlns="http://www.hybris.de/xsd/processdefinition"
+        name="TrainingBusinessProcess"
+        start="action1"
+        processClass="org.training.core.model.TrainingProcessModel"
+        onError="error">
+
+    <action id="action1" bean="action1">
+        <transition name="OK" to="action2"/>
+        <transition name="NOK" to="action3"/>
+    </action>
+
+    <action id="action2" bean="action2">
+        <transition name="OK" to="action4"/>
+        <transition name="NOK" to="error"/>
+    </action>
+
+    <action id="action3" bean="action3">
+        <transition name="OK" to="action4"/>
+        <transition name="NOK" to="error"/>
+    </action>
+
+    <action id="action4" bean="action4">
+        <transition name="OK" to="waitNode"/>
+        <transition name="NOK" to="error"/>
+    </action>
+
+    <wait id="waitNode" then="success" prependProcessCode="false">
+        <event>${process.code}_TrainingBusinessProcessEvent</event>
+    </wait>
+
+    <end id="success" state="SUCCEEDED">Everything was fine</end>
+
+    <end id="error" state="ERROR">Something went wrong.</end>
+
+    <end id="failed" state="FAILED">Process was failed</end>
+
+
+
+    <!--  Wait node with timeout  -->
+<!--    <wait id="waitNode" then="success" prependProcessCode="false">-->
+<!--        <event>${process.code}_TrainingBusinessProcessEvent</event>-->
+<!--        <timeout delay='PT30S' then='failed' />-->
+<!--    </wait>-->
+
+
+
+    <!--  Wait node with choice  -->
+<!--    <wait id='waitNode' then='nothingChoosen' prependProcessCode='false'>-->
+<!--        <case event='eventWithChoice'>-->
+<!--            <choice id='first_choice' then='firstChoiceChoosen'/>-->
+<!--            <choice id='second_choice' then='secondChoiceChoosen'/>-->
+<!--        </case>-->
+<!--    </wait>-->
+
+
+
+    <!--  Split node  -->
+<!--    <split id="split">-->
+<!--        <targetNode name="rnd"/> <targetNode name="sayC"/>-->
+<!--    </split>-->
+
+
+
+    <!--  Notify node  -->
+<!--    <notify id="notifyadmingroup"then="split">-->
+<!--        <userGroup name="admingroup"message="Perform action"/>-->
+<!--        <userGroup name="othergroup"message="other message"/>-->
+<!--    </notify>-->
+
+
+</process>

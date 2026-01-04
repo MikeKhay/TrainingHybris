@@ -32,6 +32,21 @@
         <!-- Add your item definitions here -->
 
 
+
+        <itemtype code="TrainingProcess" autocreate="true"
+                  generate="true" jaloclass="org.training.core.jalo.TrainingProcess"
+                  extends="BusinessProcess">
+            <attributes>
+                <attribute qualifier="trainingAttribute" type="java.lang.String">
+                    <modifiers read="true" write="true" optional="true" search="true"/>
+                    <persistence type="property" />
+                </attribute>
+            </attributes>
+        </itemtype>
+
+
+
+
         <itemtype code="TrainingItem"
                   autocreate="true"
                   generate="true"
