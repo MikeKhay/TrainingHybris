@@ -616,4 +616,16 @@
 		<property name="businessProcessService" ref="businessProcessService"/>
 	</bean>
 
+
+
+
+	<!-- Training Task -->
+	<bean id="trainingTaskRunner" class="org.training.core.training.task.TrainingTaskRunner">
+	</bean>
+
+	<bean id="trainingTaskService" class="org.training.core.training.task.TrainingTaskService">
+		<property name="modelService" ref="modelService"/>
+		<property name="taskService" ref="taskService"/>
+	</bean>
+
 </beans>

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.training.core.training.businessProcess.TrainingBusinessProcessService;
 import org.training.core.training.interceptor.TrainingInterceptorService;
+import org.training.core.training.task.TrainingTaskService;
 
 import javax.annotation.Resource;
 
@@ -19,6 +20,9 @@ public class TrainingTestController extends AbstractPageController {
 
     @Resource(name = "trainingBusinessProcessService")
     private TrainingBusinessProcessService trainingBusinessProcessService;
+
+    @Resource(name = "trainingTaskService")
+    private TrainingTaskService trainingTaskService;
 
     @RequestMapping(method = RequestMethod.GET, value = "/test")
     public String test(
@@ -34,6 +38,8 @@ public class TrainingTestController extends AbstractPageController {
             trainingBusinessProcessService.createTrainingBusinessProcess();
         } else if (id == 3) {
             trainingBusinessProcessService.triggerEventWithBusinessProcessCode();
+        } else if (id == 4) {
+            trainingTaskService.createTask();
         }
 
         return REDIRECT_PREFIX + ROOT;
