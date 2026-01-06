@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.training.core.training.businessProcess.TrainingBusinessProcessService;
 import org.training.core.training.clusterAwareEvent.TrainingClusterAwareService;
+import org.training.core.training.dynamicAttributeHandler.TrainingDynamicAttributeService;
 import org.training.core.training.interceptor.TrainingInterceptorService;
 import org.training.core.training.task.TrainingTaskService;
 
@@ -28,6 +29,9 @@ public class TrainingTestController extends AbstractPageController {
     @Resource(name = "trainingClusterAwareService")
     private TrainingClusterAwareService trainingClusterAwareService;
 
+    @Resource(name = "trainingDynamicAttributeService")
+    private TrainingDynamicAttributeService trainingDynamicAttributeService;
+
     @RequestMapping(method = RequestMethod.GET, value = "/test")
     public String test(
             @RequestParam(value = "id", defaultValue = "0", required = false) final int id
@@ -46,6 +50,8 @@ public class TrainingTestController extends AbstractPageController {
             trainingTaskService.createTask();
         } else if (id == 5) {
             trainingClusterAwareService.publishEvent();
+        } else if (id == 6) {
+            trainingDynamicAttributeService.testDynamicAttribute();
         }
 
         return REDIRECT_PREFIX + ROOT;

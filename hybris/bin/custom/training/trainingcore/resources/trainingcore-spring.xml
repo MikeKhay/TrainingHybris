@@ -640,4 +640,16 @@
 		  parent="abstractEventListener">
 	</bean>
 
+
+
+	<!-- Training Dynamic Attribute Handler -->
+	<bean id="trainingDynamicAttributeHandler"
+		  class="org.training.core.training.dynamicAttributeHandler.TrainingDynamicAttributeHandler">
+	</bean>
+
+	<bean id="trainingDynamicAttributeService"
+		  class="org.training.core.training.dynamicAttributeHandler.TrainingDynamicAttributeService">
+		<property name="modelService" ref="modelService"/>
+	</bean>
+
 </beans>

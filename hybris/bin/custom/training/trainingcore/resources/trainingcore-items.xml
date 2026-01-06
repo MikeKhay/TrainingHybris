@@ -57,6 +57,10 @@
                     <modifiers read="true" write="true" optional="true" search="true"/>
                     <persistence type="property"/>
                 </attribute>
+                <attribute qualifier="trainingDynamicAttribute" type="java.lang.String">
+                    <persistence type="dynamic" attributeHandler="trainingDynamicAttributeHandler"/>
+                    <modifiers read="true" write="true" optional="true" unique="false"/>
+                </attribute>
             </attributes>
         </itemtype>
 
