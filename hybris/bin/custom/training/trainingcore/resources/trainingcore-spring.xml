@@ -652,4 +652,18 @@
 		<property name="modelService" ref="modelService"/>
 	</bean>
 
+
+
+	<!-- Training Solr -->
+	<bean id="trainingManufactureZoneValueProvider"
+		  class="org.training.core.training.solr.TrainingManufactureZoneValueProvider"
+		  parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
+	</bean>
+
+	<bean id="trainingManufactureZoneFacetDisplayNameProvider"
+		  class="org.training.core.training.solr.TrainingManufactureZoneFacetDisplayNameProvider">
+	</bean>
+
+
 </beans>

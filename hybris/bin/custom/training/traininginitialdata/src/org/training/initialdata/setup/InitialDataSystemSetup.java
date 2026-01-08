@@ -93,6 +93,10 @@ public class InitialDataSystemSetup extends AbstractSystemSetup
 		/*
 		 * Add import data for each site you have configured
 		 */
+		importImpexFile(context, "/traininginitialdata/import/sampledata/productCatalogs/catalogName/products-facet.impex");
+		importImpexFile(context, "/traininginitialdata/import/sampledata/productCatalogs/catalogName/products.impex");
+		importImpexFile(context, "/traininginitialdata/import/coredata/stores/storeName/solr.impex");
+		importImpexFile(context, "/traininginitialdata/import/coredata/stores/storeName/solr_en.impex");
 	}
 
 	public CoreDataImportService getCoreDataImportService()

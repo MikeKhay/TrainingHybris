@@ -4,13 +4,34 @@
 # ImpEx for Importing Products
 
 # Macros / Replacement Parameter definitions
-$productCatalog=__PRODUCT_CATALOG_NAME__
-$productCatalogName=__PRODUCT_CATALOG_FULL_NAME__
+$productCatalog = electronicsProductCatalog
+$productCatalogName = Electronics Product Catalog
 
-$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
-$supercategories=supercategories(code, $catalogVersion)
-$baseProduct=baseProduct(code,$catalogVersion)
-$approved=approvalstatus(code)[default='check']
+$catalogVersion = catalogversion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = $productCatalog:Staged]
+$supercategories = supercategories(code, $catalogVersion)
+$baseProduct = baseProduct(code, $catalogVersion)
 
-# Insert Products
-INSERT_UPDATE Product;code[unique=true];$supercategories;manufacturerName;manufacturerAID;unit(code);ean;variantType(code);$catalogVersion;$approved
+# Update Products
+INSERT_UPDATE Product; code[unique = true]; soldIndividually; sellingRank[default = '100']; productZone[default = 'PZ10']; manufactureZones(zoneID)[mode = append]; variantType(code); $catalogVersion
+                     ; 2053367            ; true            ; 100                         ; PZ8                          ; DHAKA                                  ;                  ;
+                     ; 3514519            ; true            ; 500                         ; PZ8                          ; KOLKATA                                ;                  ;
+                     ; 812888             ; true            ; 800                         ; PZ10                         ; DELHI                                  ;                  ;
+                     ; 2934297            ; true            ; 200                         ; PZ1                          ; CHONGQING                              ;                  ;
+                     ; 2934302            ; true            ; 200                         ; PZ2                          ; ISTANBUL                               ;                  ;
+                     ; 816262             ; true            ; 600                         ; PZ5                          ; CAIRO                                  ;                  ;
+                     ; 832382             ; true            ; 100                         ; PZ6                          ; OSAKA                                  ;                  ;
+                     ; 489702             ; true            ; 550                         ; PZ10                         ; TOKYO                                  ;                  ;
+                     ; 4873607            ; true            ; 200                         ; PZ1                          ; MUMBAI                                 ;                  ;
+                     ; 4812254            ; true            ; 800                         ; PZ1                          ; BEIJING                                ;                  ;
+                     ; 3514522            ; true            ; 550                         ; PZ2                          ; BUENOS_AIRES                           ;                  ;
+                     ; 278688             ; true            ; 550                         ; PZ5                          ; TOKYO                                  ;                  ;
+                     ; 356970             ; true            ; 999                         ; PZ10                         ; ISTANBUL                               ;                  ;
+                     ; 686951             ; true            ; 100                         ; PZ10                         ; MEXICO_CITY                            ;                  ;
+                     ; 816326             ; true            ; 200                         ; PZ6                          ; OSAKA                                  ;                  ;
+                     ; 917699             ; true            ; 600                         ; PZ0                          ; TOKYO                                  ;                  ;
+                     ; 1377492            ; true            ; 200                         ; PZ11                         ; SAO_PAULO                              ;                  ;
+                     ; 1550476            ; true            ; 200                         ; PZ5                          ; DELHI                                  ;                  ;
+                     ; 1981412            ; true            ; 200                         ; PZ1                          ; KOLKATA                                ;                  ;
+                     ; 2140197            ; true            ; 800                         ; PZ1                          ; SHANGHAI                               ;                  ;
+                     ; 3514517            ; true            ; 100                         ; PZ2                          ; KARACHI                                ;                  ;
+                     ; 3505505            ; true            ; 200                         ; PZ6                          ; BEIJING                                ;                  ;

@@ -1,3 +1,38 @@
+$solrIndexedType = electronicsProductType
+
+
+#SOLR :: CREATE A FACET [PRIMITIVE TYPE]
+# Facets
+INSERT_UPDATE SolrIndexedProperty; solrIndexedType(identifier)[unique = true]; name[unique = true]; type(code); sortableType(code); currency[default = false]; localized[default = false]; multiValue[default = false]; facet[default = true]; facetType(code); facetSort(code); priority; visible; useForSpellchecking[default = false]; useForAutocomplete[default = false]; fieldValueProvider    ; facetDisplayNameProvider; customFacetSortProvider; topValuesProvider; rangeSets(name)
+                                 ; $solrIndexedType                          ; soldIndividually   ; boolean   ;                   ;                          ;                           ; true                       ;                      ; Refine         ; Alpha          ; 2000    ; true   ;                                     ;                                    ; springELValueProvider ;                         ;                        ;                  ;
+
+# Facet search query properties
+INSERT_UPDATE SolrSearchQueryProperty; indexedProperty(name, solrIndexedType(identifier))[unique = true]; facet[default = true]; facetType(code); priority; facetDisplayNameProvider; facetSortProvider; facetTopValuesProvider; includeInResponse[default = true]; searchQueryTemplate(name, indexedType(identifier))[unique = true][default = DEFAULT:$solrIndexedType]
+                                     ; soldIndividually:$solrIndexedType                                ;                      ; Refine         ; 2000    ;                         ;                  ;                       ;                                  ;
+
+
+
+
+#SOLR :: CREATING A FACET USING VALUE PROVIDER
+# Facets
+INSERT_UPDATE SolrIndexedProperty; solrIndexedType(identifier)[unique = true]; name[unique = true]; type(code); sortableType(code); currency[default = false]; localized[default = false]; multiValue[default = false]; facet[default = true]; facetType(code); facetSort(code); priority; visible; useForSpellchecking[default = false]; useForAutocomplete[default = false]; fieldValueProvider                   ; facetDisplayNameProvider; customFacetSortProvider; topValuesProvider; rangeSets(name)
+                                 ; $solrIndexedType                          ; sellingRank        ; int       ;                   ;                          ;                           ; true                       ;                      ; Refine         ; Alpha          ; 3000    ; true   ;                                     ;                                    ; springELValueProvider                ;                         ;                        ;                  ;
+                                 ; $solrIndexedType                          ; productZone        ; string    ;                   ;                          ;                           ; true                       ;                      ; MultiSelectAnd ; Alpha          ; 4000    ; true   ;                                     ;                                    ; springELValueProvider                ;                         ;                        ;                  ;
+                                 ; $solrIndexedType                          ; manufactureZones   ; string    ;                   ;                          ;                           ; true                       ;                      ; MultiSelectOr  ; Alpha          ; 5000    ; true   ;                                     ;                                    ; trainingManufactureZoneValueProvider ;                         ;                        ;                  ;
+
+# Facet search query properties
+INSERT_UPDATE SolrSearchQueryProperty; indexedProperty(name, solrIndexedType(identifier))[unique = true]; facet[default = true]; facetType(code); priority; facetDisplayNameProvider                        ; facetSortProvider; facetTopValuesProvider; includeInResponse[default = true]; searchQueryTemplate(name, indexedType(identifier))[unique = true][default = DEFAULT:$solrIndexedType]
+                                     ; sellingRank:$solrIndexedType                                     ;                      ; Refine         ; 3000    ;                                                 ;                  ;                       ;                                  ;
+                                     ; productZone:$solrIndexedType                                     ;                      ; MultiSelectAnd ; 4000    ;                                                 ;                  ;                       ;                                  ;
+                                     ; manufactureZones:$solrIndexedType                                ;                      ; MultiSelectOr  ; 5000    ; trainingManufactureZoneFacetDisplayNameProvider ;                  ;                       ;                                  ;
+
+
+
+
+
+
+
+
 # -----------------------------------------------------------------------
 # Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
 # -----------------------------------------------------------------------
