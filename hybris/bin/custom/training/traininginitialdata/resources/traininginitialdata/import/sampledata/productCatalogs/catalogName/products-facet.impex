@@ -1,0 +1,18 @@
+INSERT_UPDATE ManufactureZone; zoneID[unique = true]; zoneName     ; postalCode
+                             ; TOKYO                ; TOKYO        ; 1000001
+                             ; DELHI                ; DELHI        ; 110001
+                             ; SHANGHAI             ; SHANGHAI     ; 200000
+                             ; SAO_PAULO            ; SAO PAULO    ; 01000000
+                             ; MEXICO_CITY          ; MEXICO CITY  ; 01000
+                             ; CAIRO                ; CAIRO        ; 11511
+                             ; DHAKA                ; DHAKA        ; 1000
+                             ; MUMBAI               ; MUMBAI       ; 400001
+                             ; BEIJING              ; BEIJING      ; 100000
+                             ; OSAKA                ; OSAKA        ; 5300001
+                             ; KARACHI              ; KARACHI      ; 74000
+                             ; CHONGQING            ; CHONGQING    ; 400000
+                             ; ISTANBUL             ; ISTANBUL     ; 34000
+                             ; BUENOS_AIRES         ; BUENOS AIRES ; 1000
+                             ; KOLKATA              ; KOLKATA      ; 700001
+
+
