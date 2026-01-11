@@ -1,0 +1,73 @@
+<hybrisconfig xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:noNamespaceSchemaLocation='../bin/platform/resources/schemas/extensions.xsd'>
+  <extensions>
+    <path dir='${HYBRIS_BIN_DIR}' autoload='false' />
+    <extension name='adaptivesearch' />
+    <extension name='adaptivesearchbackoffice' />
+    <extension name='adaptivesearchfacades' />
+    <extension name='adaptivesearchsamplesaddon' />
+    <extension name='adaptivesearchsolr' />
+    <extension name='adaptivesearchwebservices' />
+    <extension name='captchaaddon' />
+    <extension name='multicountrysampledataaddon' />
+    <extension name='wishlist' />
+    <extension name='backoffice' />
+    <extension name='platformbackoffice' />
+    <extension name='ybackoffice' />
+    <extension name='yaddon' />
+    <extension name='basecommerce' />
+    <extension name='basecommercebackoffice' />
+    <extension name='customerreview' />
+    <extension name='payment' />
+    <extension name='voucher' />
+    <extension name='voucherbackoffice' />
+    <extension name='admincockpit' />
+    <extension name='productcockpit' />
+    <extension name='cockpit' />
+    <extension name='commercefacades' />
+    <extension name='commerceservices' />
+    <extension name='commerceservicesbackoffice' />
+    <extension name='commercewebservices' />
+    <extension name='commercewebservicescommons' />
+    <extension name='commercewebservicestests' />
+    <extension name='yocc' />
+    <extension name='yocctests' />
+    <extension name='acceleratorbackoffice' />
+    <extension name='acceleratorcms' />
+    <extension name='acceleratorfacades' />
+    <extension name='acceleratorocc' />
+    <extension name='acceleratorservices' />
+    <extension name='acceleratorstorefrontcommons' />
+    <extension name='addonsupport' />
+    <extension name='yempty' />
+    <extension name='yhacext' />
+    <extension name='yvoid' />
+    <extension name='backofficesolrsearch' />
+    <extension name='solrfacetsearch' />
+    <extension name='solrfacetsearchbackoffice' />
+    <extension name='solrserver' />
+    <extension name='cms2' />
+    <extension name='cms2lib' />
+    <extension name='cmsbackoffice' />
+    <extension name='cmscockpit' />
+    <extension name='cmsfacades' />
+    <extension name='cmsocc' />
+    <extension name='cmswebservices' />
+    <extension name='previewwebservices' />
+    <extension name='permissionsfacades' />
+    <extension name='permissionswebservices' />
+    <extension name='webservicescommons' />
+    <extension name='ywebservices' />
+
+    <extension name='electronicsstore' />
+<!--    <extension name='apparelstore' />-->
+
+    <extension name='trainingcore'/>
+    <extension name='trainingbackoffice'/>
+    <extension name='trainingfacades'/>
+    <extension name='trainingfulfilmentprocess'/>
+    <extension name='traininginitialdata'/>
+    <extension name='trainingstorefront'/>
+<!--    <extension name='trainingtest'/>-->
+
+  </extensions>
+</hybrisconfig>
