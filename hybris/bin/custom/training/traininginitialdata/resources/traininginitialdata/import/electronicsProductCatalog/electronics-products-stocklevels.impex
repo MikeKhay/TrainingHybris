@@ -1,0 +1,21 @@
+# ImpEx for Importing Products stock levels into Electronics Store
+
+# Macros / Replacement Parameter definitions
+$productCatalog = electronicsProductCatalog
+$productCatalogName = Electronics Product Catalog
+$catalogVersion = catalogversion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = $productCatalog:Staged]
+
+INSERT_UPDATE StockLevel; available; warehouse(code)[unique = true]; inStockStatus(code); maxPreOrder; maxStockLevelHistoryCount; overSelling; preOrder; productCode[unique = true]; reserved
+                        ; 0        ; warehouse_s                   ; forceInStock       ; 0          ; 0                        ; 0          ; 0       ; 99999111                  ; 0
+                        ; 0        ; warehouse_s                   ; forceInStock       ; 0          ; 0                        ; 0          ; 0       ; 99999112                  ; 0
+                        ; 4        ; warehouse_e                   ; notSpecified       ; 1          ; 0                        ; 0          ; 0       ; 99999112_red              ; 0
+                        ; 31       ; warehouse_w                   ; notSpecified       ; 1          ; 0                        ; 0          ; 0       ; 99999112_green            ; 0
+                        ; 15       ; warehouse_n                   ; forceOutOfStock    ; 1          ; 0                        ; 0          ; 0       ; 99999112_blue             ; 0
+
+
+UPDATE Product; code[unique = true]; $catalogVersion; stockLevels(productCode, warehouse(code)); vendors(code)
+              ; 99999111           ;                ; 99999111:warehouse_s                     ;
+              ; 99999112           ;                ; 99999112:warehouse_s                     ;
+              ; 99999112_red       ;                ; 99999112_red:warehouse_e                 ;
+              ; 99999112_green     ;                ; 99999112_green:warehouse_w               ;
+              ; 99999112_blue      ;                ; 99999112_blue:warehouse_n                ;

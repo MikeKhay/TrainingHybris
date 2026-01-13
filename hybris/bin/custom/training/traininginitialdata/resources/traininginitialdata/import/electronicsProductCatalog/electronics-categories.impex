@@ -1,0 +1,30 @@
+# ImpEx for Importing Categories into Electronics Product Catalog
+
+# Macros / Replacement Parameter definitions
+$productCatalog = electronicsProductCatalog
+$catalogVersion = catalogversion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = $productCatalog:Staged]
+$supercategories = source(code, $catalogVersion)[unique = true]
+$categories = target(code, $catalogVersion)[unique = true]
+
+# Language
+$lang = en
+
+# Insert Categories
+INSERT_UPDATE Category; code[unique = true]; name[lang = $lang]           ; allowedPrincipals(uid)[default = 'customergroup']; $catalogVersion
+                      ; 999991             ; "Electronics Category 1"     ;                                                  ;
+                      ; 999992             ; "Electronics Category 2"     ;                                                  ;
+                      ; 9999911            ; "Electronics SubCategory 11" ;                                                  ;
+                      ; 9999912            ; "Electronics SubCategory 12" ;                                                  ;
+                      ; 9999913            ; "Electronics SubCategory 13" ;                                                  ;
+                      ; 9999921            ; "Electronics SubCategory 21" ;                                                  ;
+                      ; 9999922            ; "Electronics SubCategory 22" ;                                                  ;
+
+# Insert Category Structure
+INSERT_UPDATE CategoryCategoryRelation; $categories; $supercategories
+                                      ; 999991     ; 1
+                                      ; 999992     ; 1
+                                      ; 9999911    ; 999991
+                                      ; 9999912    ; 999991
+                                      ; 9999913    ; 999991
+                                      ; 9999921    ; 999992
+                                      ; 9999922    ; 999992

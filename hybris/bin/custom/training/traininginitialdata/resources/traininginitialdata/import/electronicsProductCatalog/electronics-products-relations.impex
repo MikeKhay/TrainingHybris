@@ -1,0 +1,14 @@
+# ImpEx for Related Products into Electronics Store
+
+# Macros / Replacement Parameter definitions
+$productCatalog = electronicsProductCatalog
+$catalogVersion = catalogversion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = $productCatalog:Staged]
+$approved = approvalstatus(code)[default = 'approved']
+
+# Insert Product References
+INSERT_UPDATE ProductReference; source(code, $catalogVersion)[unique = true]; target(code, $catalogVersion)[unique = true]; referenceType(code); active; preselected
+                              ; 99999111                                    ; 300938                                      ; SIMILAR            ; true  ; false
+                              ; 99999111                                    ; 1992693                                     ; SIMILAR            ; true  ; false
+                              ; 99999111                                    ; 358639                                      ; ACCESSORIES        ; true  ; false
+                              ; 99999111                                    ; 553637                                      ; ACCESSORIES        ; true  ; false
+                              ; 99999111                                    ; 1978440_md_blue                             ; ACCESSORIES        ; true  ; false

@@ -1,0 +1,19 @@
+#
+# Import the Training Product Catalog
+#
+
+$productCatalog = trainingProductCatalog
+$catalogVersion = catalogversion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = $productCatalog:Staged]
+$languages = en
+
+# Language
+$lang = en
+
+# Product catalog
+INSERT_UPDATE Catalog; id[unique = true]; name[lang = $lang]
+                     ; $productCatalog  ; "Training Product Catalog"
+
+# Product versions for product catalogs
+INSERT_UPDATE CatalogVersion; catalog(id)[unique = true]; version[unique = true]; active; languages(isoCode); readPrincipals(uid)
+                            ; $productCatalog           ; Staged                ; false ; $languages        ; employeegroup
+                            ; $productCatalog           ; Online                ; true  ; $languages        ; employeegroup
