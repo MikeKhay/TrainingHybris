@@ -1,0 +1,22 @@
+# ImpEx for Importing Electronics Store Prices
+#% impex.setLocale( Locale.GERMAN );
+
+$productCatalog = electronicsProductCatalog
+$catalogVersion = catalogversion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = '$productCatalog:Staged']
+$taxGroup = Europe1PriceFactory_PTG(code)[default = jp-vat-full]
+$approved = approvalstatus(code)[default = 'approved']
+
+UPDATE Product; code[unique = true]; $approved; $catalogVersion; $taxGroup
+              ; 99999111           ;          ;                ;
+              ; 99999112           ;          ;                ;
+              ; 99999112_red       ;          ;                ;
+              ; 99999112_green     ;          ;                ;
+              ; 99999112_blue      ;          ;                ;
+
+#Standart Price for products(We can add Price related to qty, usergroup, channel(modileor desctop))
+INSERT_UPDATE PriceRow; productId[unique = true]; unit(code[unique = true, default = pieces]); currency(isocode)[unique = true]; price; minqtd; unitFactor; net
+                      ; 99999111                ; pieces                                     ; USD                             ; 12   ; 1     ; 1         ; false
+                      ; 99999112                ; pieces                                     ; USD                             ; 13   ; 1     ; 1         ; false
+                      ; 99999112_red            ; pieces                                     ; USD                             ; 14   ; 1     ; 1         ; false
+                      ; 99999112_green          ; pieces                                     ; USD                             ; 15   ; 1     ; 1         ; false
+                      ; 99999112_blue           ; pieces                                     ; USD                             ; 16   ; 1     ; 1         ; false

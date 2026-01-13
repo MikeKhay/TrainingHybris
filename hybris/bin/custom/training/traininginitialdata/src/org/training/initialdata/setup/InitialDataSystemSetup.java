@@ -93,10 +93,30 @@ public class InitialDataSystemSetup extends AbstractSystemSetup
 		/*
 		 * Add import data for each site you have configured
 		 */
+
+		// SOLR
 		importImpexFile(context, "/traininginitialdata/import/sampledata/productCatalogs/catalogName/products-facet.impex");
 		importImpexFile(context, "/traininginitialdata/import/sampledata/productCatalogs/catalogName/products.impex");
 		importImpexFile(context, "/traininginitialdata/import/coredata/stores/storeName/solr.impex");
 		importImpexFile(context, "/traininginitialdata/import/coredata/stores/storeName/solr_en.impex");
+
+
+
+
+		// Training Products Catalog
+		importImpexFile(context,"/traininginitialdata/import/trainingProductCatalog/training-catalog.impex");
+		importImpexFile(context,"/traininginitialdata/import/trainingProductCatalog/training-categories.impex");
+		importImpexFile(context,"/traininginitialdata/import/trainingProductCatalog/training-products.impex");
+		importImpexFile(context,"/traininginitialdata/import/trainingProductCatalog/training-sync-job.impex");
+
+		// Electronics Products Catalog
+		importImpexFile(context,"/traininginitialdata/import/electronicsProductCatalog/electronics-categories.impex");
+		importImpexFile(context,"/traininginitialdata/import/electronicsProductCatalog/electronics-products.impex");
+		importImpexFile(context,"/traininginitialdata/import/electronicsProductCatalog/electronics-products-prices.impex");
+		importImpexFile(context,"/traininginitialdata/import/electronicsProductCatalog/electronics-products-stocklevels.impex");
+		importImpexFile(context,"/traininginitialdata/import/electronicsProductCatalog/electronics-products-relations.impex");
+		importImpexFile(context,"/traininginitialdata/import/electronicsProductCatalog/electronics-products-tax.impex");
+		importImpexFile(context,"/traininginitialdata/import/electronicsProductCatalog/electronics-reviews.impex");
 	}
 
 	public CoreDataImportService getCoreDataImportService()

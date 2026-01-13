@@ -1,0 +1,22 @@
+# ImpEx for Importing Products into Training Product Catalog
+
+# Macros / Replacement Parameter definitions
+$productCatalog = trainingProductCatalog
+$catalogVersion = catalogversion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = $productCatalog:Staged]
+$supercategories = supercategories(code, $catalogVersion)
+$baseProduct = baseProduct(code, $catalogVersion)
+$approved = approvalstatus(code)[default = 'approved']
+
+# Language
+$lang = en
+
+# Insert Products
+INSERT_UPDATE Product; code[unique = true]; $supercategories; manufacturerName       ; manufacturerAID              ; unit(code); ean      ; variantType(code)              ; $catalogVersion; $approved; name[lang = $lang]          ; summary[lang = $lang]          ; description[lang = $lang]
+                     ; 00000111           ; 0000011         ; "Training Product 111" ; "Training Product Model 111" ; pieces    ; 00000111 ;                                ;                ;          ; "Training Product Name 111" ; "Training Product Summary 111" ; "Training Product Description 111"
+                     ; 00000112           ; 0000011         ; "Training Product 112" ; "Training Product Model 112" ; pieces    ; 00000112 ; ElectronicsColorVariantProduct ;                ;          ; "Training Product Name 112" ; "Training Product Summary 112" ; "Training Product Description 112"
+
+# Insert Variants Product
+INSERT_UPDATE ElectronicsColorVariantProduct; code[unique = true]; $baseProduct; ean      ; unit(code); color ; $supercategories; $approved; $catalogVersion
+                                            ; 00000112_red       ; 00000112    ; 00000112 ; pieces    ; Red   ;                 ;          ;
+                                            ; 00000112_green     ; 00000112    ; 00000112 ; pieces    ; Green ;                 ;          ;
+                                            ; 00000112_blue      ; 00000112    ; 00000112 ; pieces    ; Blue  ;                 ;          ;

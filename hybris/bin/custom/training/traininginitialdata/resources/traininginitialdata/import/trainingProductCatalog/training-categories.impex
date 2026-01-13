@@ -1,0 +1,28 @@
+# ImpEx for Importing Categories into Training Product Catalog
+
+# Macros / Replacement Parameter definitions
+$productCatalog = trainingProductCatalog
+$catalogVersion = catalogversion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = $productCatalog:Staged]
+$supercategories = source(code, $catalogVersion)[unique = true]
+$categories = target(code, $catalogVersion)[unique = true]
+
+# Language
+$lang = en
+
+# Insert Categories
+INSERT_UPDATE Category; code[unique = true]; name[lang = $lang]        ; allowedPrincipals(uid)[default = 'customergroup']; $catalogVersion
+                      ; 000001             ; "Training Category 1"     ;                                                  ;
+                      ; 000002             ; "Training Category 2"     ;                                                  ;
+                      ; 0000011            ; "Training SubCategory 11" ;                                                  ;
+                      ; 0000012            ; "Training SubCategory 12" ;                                                  ;
+                      ; 0000013            ; "Training SubCategory 13" ;                                                  ;
+                      ; 0000021            ; "Training SubCategory 21" ;                                                  ;
+                      ; 0000022            ; "Training SubCategory 22" ;                                                  ;
+
+# Insert Category Structure
+INSERT_UPDATE CategoryCategoryRelation; $categories; $supercategories
+                                      ; 0000011    ; 000001
+                                      ; 0000012    ; 000001
+                                      ; 0000013    ; 000001
+                                      ; 0000021    ; 000002
+                                      ; 0000022    ; 000002

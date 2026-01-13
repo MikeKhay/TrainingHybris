@@ -1,0 +1,22 @@
+# ImpEx for Importing Products into Electronics Product Catalog
+
+# Macros / Replacement Parameter definitions
+$productCatalog = electronicsProductCatalog
+$catalogVersion = catalogversion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = $productCatalog:Staged]
+$supercategories = supercategories(code, $catalogVersion)
+$baseProduct = baseProduct(code, $catalogVersion)
+$approved = approvalstatus(code)[default = 'approved']
+
+# Language
+$lang = en
+
+# Insert Products
+INSERT_UPDATE Product; code[unique = true]; $supercategories; manufacturerName          ; manufacturerAID                 ; unit(code); ean      ; variantType(code)              ; $catalogVersion; $approved; name[lang = $lang]             ; summary[lang = $lang]             ; description[lang = $lang]
+                     ; 99999111           ; 9999911         ; "Electronics Product 111" ; "Electronics Product Model 111" ; pieces    ; 99999111 ;                                ;                ;          ; "Electronics Product Name 111" ; "Electronics Product Summary 111" ; "Electronics Product Description 111"
+                     ; 99999112           ; 9999911         ; "Electronics Product 112" ; "Electronics Product Model 112" ; pieces    ; 99999112 ; ElectronicsColorVariantProduct ;                ;          ; "Electronics Product Name 112" ; "Electronics Product Summary 112" ; "Electronics Product Description 112"
+
+# Insert Variants Product
+INSERT_UPDATE ElectronicsColorVariantProduct; code[unique = true]; manufacturerName                ; manufacturerAID                       ; $baseProduct; ean      ; unit(code); color ; $supercategories; $approved; $catalogVersion; name[lang = $lang]                   ; summary[lang = $lang]                   ; description[lang = $lang]
+                                            ; 99999112_red       ; "Electronics Product 112 Red"   ; "Electronics Product Model 112 Red"   ; 99999112    ; 99999112 ; pieces    ; Red   ;                 ;          ;                ; "Electronics Product Name 112 Red"   ; "Electronics Product Summary 112 Red"   ; "Electronics Product Description 112 Red"
+                                            ; 99999112_green     ; "Electronics Product 112 Green" ; "Electronics Product Model 112 Green" ; 99999112    ; 99999112 ; pieces    ; Green ;                 ;          ;                ; "Electronics Product Name 112 Green" ; "Electronics Product Summary 112 Green" ; "Electronics Product Description 112 Green"
+                                            ; 99999112_blue      ; "Electronics Product 112 Blue"  ; "Electronics Product Model 112 Blue"  ; 99999112    ; 99999112 ; pieces    ; Blue  ;                 ;          ;                ; "Electronics Product Name 112 Blue"  ; "Electronics Product Summary 112 Blue"  ; "Electronics Product Description 112 Blue"
