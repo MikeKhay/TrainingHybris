@@ -99,6 +99,7 @@ public class InitialDataSystemSetup extends AbstractSystemSetup
 		importImpexFile(context, "/traininginitialdata/import/sampledata/productCatalogs/catalogName/products.impex");
 		importImpexFile(context, "/traininginitialdata/import/coredata/stores/storeName/solr.impex");
 		importImpexFile(context, "/traininginitialdata/import/coredata/stores/storeName/solr_en.impex");
+		importImpexFile(context, "/traininginitialdata/import/coredata/stores/storeName/solr2.impex");
 
 
 

@@ -1,0 +1,100 @@
+# ImpEx for Solr for Electronics Store
+$solrIndexedType = electronicsProductType
+$facetSearchConfigName = electronicsIndex
+$contentCatalogName = electronicsContentCatalog
+$productCatalog = electronicsProductCatalog
+$productCatalogVersion = catalogversion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = $productCatalog:Staged]
+$lang = en
+
+
+# Define the available sorts
+INSERT_UPDATE SolrSort; &sortRefID; indexedType(identifier)[unique = true]; code[unique = true]; name[lang = $lang]             ; useBoost
+                      ; sortRef7  ; $solrIndexedType                      ; selling-rank-asc   ; "Selling rank (lowest first)"  ; false
+                      ; sortRef8  ; $solrIndexedType                      ; selling-rank-desc  ; "Selling rank (highest first)" ; false
+                      ; sortRef9  ; $solrIndexedType                      ; product-zone-asc   ; "Product zone (lowest first)"  ; false
+                      ; sortRef10 ; $solrIndexedType                      ; product-zone-desc  ; "Product zone (highest first)" ; false
+
+# Define the sort fields
+INSERT_UPDATE SolrSortField; sort(indexedType(identifier), code)[unique = true]; fieldName[unique = true]; ascending[unique = true]
+                           ; $solrIndexedType:selling-rank-asc                 ; sellingRank             ; true
+                           ; $solrIndexedType:selling-rank-desc                ; sellingRank             ; false
+                           ; $solrIndexedType:product-zone-asc                 ; productZone             ; true
+                           ; $solrIndexedType:product-zone-desc                ; productZone             ; false
+
+
+
+REMOVE SolrValueRange; solrValueRangeSet(name)[unique = true]; name[unique = true]
+                     ; electronicsPriceRangeUSD              ; $1,000-$100,000
+                     ; electronicsPriceRangeJPY              ; ¥100,000-¥10,000,000
+
+# Define price range set
+UPDATE SolrValueRangeSet; name[unique = true]      ; solrValueRanges(&rangeValueRefID)[mode = append]
+                        ; electronicsPriceRangeUSD ; rangeRefUSD6
+                        ; electronicsPriceRangeJPY ; rangeRefJPY6
+
+# Define price ranges
+INSERT_UPDATE SolrValueRange; &rangeValueRefID; solrValueRangeSet(name)[unique = true]; name[unique = true]  ; from   ; to
+                            ; rangeRefUSD5    ; electronicsPriceRangeUSD              ; $1,000-$1,999        ; 1000   ; 1999
+                            ; rangeRefUSD6    ; electronicsPriceRangeUSD              ; $2,000-$100,000      ; 2000   ; 100000
+                            ; rangeRefJPY5    ; electronicsPriceRangeJPY              ; ¥100,000-¥199,999    ; 100000 ; 199999
+                            ; rangeRefJPY6    ; electronicsPriceRangeJPY              ; ¥200,000-¥10,000,000 ; 200000 ; 10000000
+
+
+
+# Redirect product code
+INSERT_UPDATE SolrProductRedirect; redirectItem(code, $productCatalogVersion)[unique = true]
+                                 ; 3325048
+                                 ; 3505505
+                                 ; 2934297
+# Redirect product code
+UPDATE SolrProductRedirect; redirectItem(code, $productCatalogVersion)[unique = true]; &redirectRefID
+                          ; 3325048                                                  ; $contentCatalogName-redirectRefID-3325048
+                          ; 3505505                                                  ; $contentCatalogName-redirectRefID-3505505
+                          ; 2934297                                                  ; $contentCatalogName-redirectRefID-2934297
+
+# Keyword Redirects (Must use INSERT_UPDATE here)
+INSERT_UPDATE SolrFacetSearchKeywordRedirect; facetSearchConfig(name)[unique = true, default = $facetSearchConfigName]; language(isocode)[unique = true, default = $lang]; keyword[unique = true]; matchType(code)[unique = true]; redirect(&redirectRefID)                  ; ignoreCase[default = true]
+                                            ;                                                                         ;                                                  ; "W180"                ; CONTAINS                      ; $contentCatalogName-redirectRefID-3325048 ;
+                                            ;                                                                         ;                                                  ; "Z915"                ; CONTAINS                      ; $contentCatalogName-redirectRefID-3505505 ;
+                                            ;                                                                         ;                                                  ; "A380"                ; CONTAINS                      ; $contentCatalogName-redirectRefID-2934297 ;
+
+
+
+# Redirect page URL
+INSERT_UPDATE SolrURIRedirect; url[unique = true]
+                             ; "/"
+                             ; "/Brands/Sony/c/brand_5"
+                             ; "/Open-Catalogue/Cameras/Webcams/c/577"
+                             ; "https://www.google.com"
+
+# Redirect page URL (Must use INSERT_UPDATE here)
+INSERT_UPDATE SolrURIRedirect; url[unique = true]                      ; &redirectRefID
+                             ; "/"                                     ; $contentCatalogName-redirectRefID-home
+                             ; "/Brands/Sony/c/brand_5"                ; $contentCatalogName-redirectRefID-sony
+                             ; "/Open-Catalogue/Cameras/Webcams/c/577" ; $contentCatalogName-redirectRefID-webcam
+                             ; "https://www.google.com"                ; $contentCatalogName-redirectRefID-google
+
+# Keyword Redirects (Must use INSERT_UPDATE here)
+INSERT_UPDATE SolrFacetSearchKeywordRedirect; facetSearchConfig(name)[unique = true, default = $facetSearchConfigName]; language(isocode)[unique = true, default = $lang]; keyword[unique = true]; matchType(code)[unique = true]; redirect(&redirectRefID)                 ; ignoreCase[default = true]
+                                            ;                                                                         ;                                                  ; "home"                ; EXACT                         ; $contentCatalogName-redirectRefID-home   ;
+                                            ;                                                                         ;                                                  ; "sony"                ; EXACT                         ; $contentCatalogName-redirectRefID-sony   ;
+                                            ;                                                                         ;                                                  ; "webcam"              ; EXACT                         ; $contentCatalogName-redirectRefID-webcam ;
+                                            ;                                                                         ;                                                  ; "google"              ; EXACT                         ; $contentCatalogName-redirectRefID-google ;
+
+
+
+# Synonyms (Must use INSERT_UPDATE here)
+INSERT_UPDATE SolrSynonymConfig; facetSearchConfig(name)[unique = true, default = $facetSearchConfigName]; language(isocode)[unique = true, default = $lang]; synonymFrom[unique = true]; synonymTo
+                               ;                                                                         ;                                                  ; "relief"                  ; "comfort"
+                               ;                                                                         ;                                                  ; "flash card"              ; "flash memory"
+                               ;                                                                         ;                                                  ; "fc"                      ; "flash memory"
+                               ;                                                                         ;                                                  ; "small,mini"              ; "compact"
+
+
+
+# Stop Word (Must use INSERT_UPDATE here)
+INSERT_UPDATE SolrStopWord; facetSearchConfig(name)[unique = true, default = $facetSearchConfigName]; language(isocode)[unique = true, default = $lang]; StopWord[unique = true]
+                          ;                                                                         ;                                                  ; "headset"
+                          ;                                                                         ;                                                  ; "steps"
+                          ;                                                                         ;                                                  ; "sensor"
+
