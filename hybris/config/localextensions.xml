@@ -18,6 +18,8 @@
     <extension name='basecommercebackoffice' />
     <extension name='customerreview' />
     <extension name='payment' />
+    <extension name='promotions' />
+    <extension name='promotionsbackoffice' />
     <extension name='voucher' />
     <extension name='voucherbackoffice' />
     <extension name='admincockpit' />
@@ -41,6 +43,8 @@
     <extension name='yempty' />
     <extension name='yhacext' />
     <extension name='yvoid' />
+    <extension name='promotionenginebackoffice' />
+    <extension name='promotionengineservices' />
     <extension name='backofficesolrsearch' />
     <extension name='solrfacetsearch' />
     <extension name='solrfacetsearchbackoffice' />

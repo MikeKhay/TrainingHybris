@@ -1,0 +1,18 @@
+$contentCatalog = trainingContentCatalog
+
+$sourceContentCV = sourceVersion(catalog(id[default = $contentCatalog]), version[default = 'Staged'])[unique = true, default = '$contentCatalog:Staged']
+$targetContentCV = targetVersion(catalog(id[default = $contentCatalog]), version[default = 'Online'])[unique = true, default = '$contentCatalog:Online']
+
+$syncJob = sync $contentCatalog:Staged->Online
+
+INSERT_UPDATE CatalogVersionSyncJob; code[unique = true]; $sourceContentCV; $targetContentCV
+                                   ; $syncJob           ;                 ;
+
+UPDATE CatalogVersionSyncJob; code[unique = true]; syncPrincipals(uid)[mode = append]          ; syncPrincipalsOnly[default = false]; sessionUser(uid)
+                            ; $syncJob           ; cmsmanagergroup,electronics-cmsmanagergroup ; true                               ; cmssyncuser
+
+INSERT_UPDATE SyncAttributeDescriptorConfig; syncJob(code)[default = synjobName][unique = true][path-delimiter = !]; attributeDescriptor(enclosingType(code), qualifier)[unique = true]; includedInSync; copyByValue[default = false]; presetValue; translateValue[default = false]; untranslatable[default = false]
+                                           ; $syncJob                                                              ; AbstractPage:originalPage                                         ; true          ;                             ;            ;                                ;
+                                           ; $syncJob                                                              ; AbstractPage:localizedPages                                       ; false         ;                             ;            ;                                ;
+                                           ; $syncJob                                                              ; AbstractCMSComponent:slots                                        ; false         ;                             ;            ;                                ;
+                                           ; $syncJob                                                              ; AbstractRestriction:pages                                         ; false         ;                             ;            ;                                ;

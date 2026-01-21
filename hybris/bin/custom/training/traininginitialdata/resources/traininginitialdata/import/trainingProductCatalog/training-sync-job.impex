@@ -1,6 +1,6 @@
 $productCatalog = trainingProductCatalog
 
-$sourceProductCV = sourceVersion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = '$trainingProductCatalog:Staged']
+$sourceProductCV = sourceVersion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = '$productCatalog:Staged']
 $targetProductCV = targetVersion(catalog(id[default = $productCatalog]), version[default = 'Online'])[unique = true, default = '$productCatalog:Online']
 
 

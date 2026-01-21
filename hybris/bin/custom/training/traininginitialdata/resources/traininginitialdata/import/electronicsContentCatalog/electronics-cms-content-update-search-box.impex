@@ -1,0 +1,7 @@
+$contentCatalog = electronicsContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Staged])[default = $contentCatalog:Staged]
+
+
+# CMS SearchBox Components
+UPDATE SearchBoxComponent; $contentCV[unique = true]; uid[unique = true]; name       ; &componentRef; maxProducts; minCharactersBeforeRequest
+                         ;                          ; SearchBox         ; Search Box ; SearchBox    ; 7          ; 2

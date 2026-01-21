@@ -1,0 +1,9 @@
+$contentCatalog = electronicsContentCatalog
+$productCatalog = electronicsProductCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Staged])[default = $contentCatalog:Staged]
+$productCV = catalogVersion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = $productCatalog:Staged]
+$lang = en
+
+#Update Our Bestselling Products Homepage
+UPDATE ProductCarouselComponent; $contentCV[unique = true]; uid[unique = true]                          ; products(code, $productCV)
+                               ;                          ; ElectronicsHomepageProductCarouselComponent ; 592506,1934406,1981415,1934793,553637,300938,1986316,816780,1382080,816802,358639
