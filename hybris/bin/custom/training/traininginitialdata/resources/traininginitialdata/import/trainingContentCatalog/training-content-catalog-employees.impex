@@ -1,0 +1,6 @@
+$defaultPassword = 12341234
+
+INSERT_UPDATE Employee; name            ; password[default = $defaultPassword]; uid[unique = true]       ; groups(uid)[mode = append]
+                      ; contentmanager  ;                                     ; contentmanager@test.com  ; employeegroup,basecmsmanagergroup,cmsmanagergroup,cmsworkflowgroup,cmseditorgroup,cmsworkflowreadonlygroup,cmsreviewergroup,basecmstranslatorgroup,cmspublishergroup
+                      ; contentmanager1 ;                                     ; contentmanager1@test.com ; employeegroup,basecmsmanagergroup,cmsmanagergroup,cmsworkflowgroup,cmseditorgroup,cmsworkflowreadonlygroup,cmsreviewergroup,basecmstranslatorgroup,cmspublishergroup
+                      ; contentmanager2 ;                                     ; contentmanager2@test.com ; employeegroup,basecmsmanagergroup,cmsmanagergroup,cmsworkflowgroup,cmseditorgroup,cmsworkflowreadonlygroup,cmsreviewergroup,basecmstranslatorgroup,cmspublishergroup

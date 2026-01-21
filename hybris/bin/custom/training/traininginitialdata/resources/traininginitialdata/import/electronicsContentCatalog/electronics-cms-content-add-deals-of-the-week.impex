@@ -1,0 +1,13 @@
+$contentCatalog = electronicsContentCatalog
+$productCatalog = electronicsProductCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Staged])[default = $contentCatalog:Staged]
+$productCV = catalogVersion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = $productCatalog:Staged]
+$lang = en
+
+#Create Deals Of The Week Products Homepage Carousel Component
+INSERT_UPDATE ProductCarouselComponent; $contentCV[unique = true]; uid[unique = true]                     ; name                               ; title[lang = $lang]; products(code, $productCV); categories(code, $productCV); scroll(code); popup; &componentRef
+                                      ;                          ; DealsOfTheWeekProductCarouselComponent ; Deals of the week Product Carousel ; Deals of the week  ; 832382,816324,861175      ; brand_75,    brand_26       ; allVisible  ; true ; DealsOfTheWeekProductCarouselComponent
+#Put into home page
+INSERT_UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]    ; cmsComponents(&componentRef)[mode = append]
+                         ;                          ; Section3Slot-Homepage ; DealsOfTheWeekProductCarouselComponent
+

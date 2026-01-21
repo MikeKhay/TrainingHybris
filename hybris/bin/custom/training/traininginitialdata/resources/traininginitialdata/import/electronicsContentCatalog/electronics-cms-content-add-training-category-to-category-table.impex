@@ -1,0 +1,65 @@
+$contentCatalog = electronicsContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Staged])[default = $contentCatalog:Staged]
+$productCatalog = electronicsProductCatalog
+$productCV = catalogVersion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = $productCatalog:Staged]
+$product = product(code, $productCV)
+$category = category(code, $productCV)
+$lang = en
+
+
+# CMS Link Components
+INSERT_UPDATE CMSLinkComponent; $contentCV[unique = true]; uid[unique = true]                ; name                   ; url                         ; &linkRef                          ; &componentRef                     ; target(code)[default = 'sameWindow']; $category; $product; linkName[lang = $lang]
+                              ;                          ; TrainingCategoryLink              ; Training Category Link ; /Brands/c/brands            ; TrainingCategoryLink              ; TrainingCategoryLink              ;                                     ; brands   ;         ; "Training Category Link"
+                              ;                          ; TrainingSonyBrandCategoryLink     ; Training Sony Link     ; /Brands/Sony/c/brand_5      ; TrainingSonyBrandCategoryLink     ; TrainingSonyBrandCategoryLink     ;                                     ; brand_5  ;         ; "Training Sony Link"
+                              ;                          ; TrainingCanonBrandCategoryLink    ; Training Canon Link    ; /Brands/Canon/c/brand_10    ; TrainingCanonBrandCategoryLink    ; TrainingCanonBrandCategoryLink    ;                                     ; brand_10 ;         ; "Training Canon Link"
+                              ;                          ; TrainingKodakBrandCategoryLink    ; Training Kodak Link    ; /Brands/Kodak/c/brand_88    ; TrainingKodakBrandCategoryLink    ; TrainingKodakBrandCategoryLink    ;                                     ; brand_88 ;         ; "Training Kodak Link"
+                              ;                          ; TrainingSamsungBrandCategoryLink  ; Training Samsung Link  ; /Brands/Samsung/c/brand_26  ; TrainingSamsungBrandCategoryLink  ; TrainingSamsungBrandCategoryLink  ;                                     ; brand_26 ;         ; "Training Samsung Link"
+                              ;                          ; TrainingToshibaBrandCategoryLink  ; Training Toshiba Link  ; /Brands/Toshiba/c/brand_2   ; TrainingToshibaBrandCategoryLink  ; TrainingToshibaBrandCategoryLink  ;                                     ; brand_2  ;         ; "Training Toshiba Link"
+                              ;                          ; TrainingFujifilmBrandCategoryLink ; Training Fujifilm Link ; /Brands/Fujifilm/c/brand_75 ; TrainingFujifilmBrandCategoryLink ; TrainingFujifilmBrandCategoryLink ;                                     ; brand_75 ;         ; "Training Fujifilm Link"
+
+# CMS Navigation Nodes
+INSERT_UPDATE CMSNavigationNode; uid[unique = true]          ; $contentCV[unique = true]; name                             ; parent(uid, $contentCV); links(&linkRef)                                                                                     ; &nodeRef                    ; title[lang = $lang]
+                               ; TrainingCategoryNavNode     ;                          ; Training Category Nav Node       ;                        ; TrainingCategoryLink                                                                                ; TrainingCategoryNavNode     ; "Training Category Nav Node"
+                               ; TrainingSubCategory1NavNode ;                          ; Training Sub Category 1 Nav Node ;                        ; TrainingSonyBrandCategoryLink                                                                       ; TrainingSubCategory1NavNode ; "Training Sub Category 1 Nav Node"
+                               ; TrainingSubCategory2NavNode ;                          ; Training Sub Category 2 Nav Node ;                        ; TrainingCanonBrandCategoryLink,TrainingKodakBrandCategoryLink                                       ; TrainingSubCategory2NavNode ; "Training Sub Category 2 Nav Node"
+                               ; TrainingSubCategory3NavNode ;                          ; Training Sub Category 3 Nav Node ;                        ; TrainingSamsungBrandCategoryLink,TrainingToshibaBrandCategoryLink,TrainingFujifilmBrandCategoryLink ; TrainingSubCategory3NavNode ; "Training Sub Category 3 Nav Node"
+
+
+
+## level 1. SiteRoot ##
+## level 2. children of SiteRoot ##
+# the following order of children is the display order on the site
+UPDATE CMSNavigationNode; uid[unique = true]         ; $contentCV[unique = true]; children(uid, $contentCV)[mode = append]
+                        ; ElectronicsCategoryNavNode ;                          ; TrainingCategoryNavNode
+
+## level 3. children of Category Nav ##
+INSERT_UPDATE CMSNavigationNode; uid[unique = true]      ; $contentCV[unique = true]; name                       ; &nodeRef                ; children(uid, $contentCV)                                                           ; links(&linkRef)
+                               ; TrainingCategoryNavNode ;                          ; Training Category Nav Node ; TrainingCategoryNavNode ; TrainingSubCategory1NavNode,TrainingSubCategory2NavNode,TrainingSubCategory3NavNode ;
+
+## level 4. children of NavNode (the following order of children is the display order on the site) ##
+INSERT_UPDATE CMSNavigationNode; uid[unique = true]          ; $contentCV[unique = true]; name                             ; &nodeRef                    ; children(uid, $contentCV)                                                            ; links(&linkRef)
+                               ; TrainingSubCategory1NavNode ;                          ; Training Sub Category 1 Nav Node ; TrainingSubCategory1NavNode ; TrainingSonyBrandNavNode                                                             ;
+                               ; TrainingSubCategory2NavNode ;                          ; Training Sub Category 2 Nav Node ; TrainingSubCategory2NavNode ; TrainingCanonBrandNavNode,TrainingKodakBrandNavNode                                  ;
+                               ; TrainingSubCategory3NavNode ;                          ; Training Sub Category 3 Nav Node ; TrainingSubCategory3NavNode ; TrainingSamsungBrandNavNode,TrainingToshibaBrandNavNode,TrainingFujifilmBrandNavNode ;
+
+## level 5. children of above (level 4) nodes ##
+INSERT_UPDATE CMSNavigationNode; uid[unique = true]           ; $contentCV[unique = true]; name                             ; &nodeRef
+                               ; TrainingSonyBrandNavNode     ;                          ; Training Sony Brand Nav Node     ; TrainingSonyBrandNavNode
+                               ; TrainingCanonBrandNavNode    ;                          ; Training Canon Brand Nav Node    ; TrainingCanonBrandNavNode
+                               ; TrainingKodakBrandNavNode    ;                          ; Training Kodak Brand Nav Node    ; TrainingKodakBrandNavNode
+                               ; TrainingSamsungBrandNavNode  ;                          ; Training Samsung Brand Nav Node  ; TrainingSamsungBrandNavNode
+                               ; TrainingToshibaBrandNavNode  ;                          ; Training Toshiba Brand Nav Node  ; TrainingToshibaBrandNavNode
+                               ; TrainingFujifilmBrandNavNode ;                          ; Training Fujifilm Brand Nav Node ; TrainingFujifilmBrandNavNode
+
+
+
+
+## entries of the above navigation nodes ##
+INSERT_UPDATE CMSNavigationEntry; uid[unique = true]                ; $contentCV[unique = true]; name                                          ; navigationNode(&nodeRef)     ; item(CMSLinkComponent.uid, CMSLinkComponent.$contentCV)
+                                ; TrainingCategoryNavNodeEntry      ;                          ; Training Category Nav Node Entry              ; TrainingCategoryNavNode      ; TrainingCategoryLink
+                                ; TrainingSonyBrandNavNodeEntry     ;                          ; Training Sony Brand Navigation Node Entry     ; TrainingSonyBrandNavNode     ; TrainingSonyBrandCategoryLink
+                                ; TrainingCanonBrandNavNodeEntry    ;                          ; Training Canon Brand Navigation Node Entry    ; TrainingCanonBrandNavNode    ; TrainingCanonBrandCategoryLink
+                                ; TrainingKodakBrandNavNodeEntry    ;                          ; Training Kodak Brand Navigation Node Entry    ; TrainingKodakBrandNavNode    ; TrainingKodakBrandCategoryLink
+                                ; TrainingSamsungBrandNavNodeEntry  ;                          ; Training Samsung Brand Navigation Node Entry  ; TrainingSamsungBrandNavNode  ; TrainingSamsungBrandCategoryLink
+                                ; TrainingToshibaBrandNavNodeEntry  ;                          ; Training Toshiba Brand Navigation Node Entry  ; TrainingToshibaBrandNavNode  ; TrainingToshibaBrandCategoryLink
+                                ; TrainingFujifilmBrandNavNodeEntry ;                          ; Training Fujifilm Brand Navigation Node Entry ; TrainingFujifilmBrandNavNode ; TrainingFujifilmBrandCategoryLink

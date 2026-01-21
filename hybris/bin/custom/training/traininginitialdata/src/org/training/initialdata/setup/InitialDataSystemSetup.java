@@ -118,6 +118,25 @@ public class InitialDataSystemSetup extends AbstractSystemSetup
 		importImpexFile(context,"/traininginitialdata/import/electronicsProductCatalog/electronics-products-relations.impex");
 		importImpexFile(context,"/traininginitialdata/import/electronicsProductCatalog/electronics-products-tax.impex");
 		importImpexFile(context,"/traininginitialdata/import/electronicsProductCatalog/electronics-reviews.impex");
+
+
+
+
+		// Content Catalog
+		importImpexFile(context,"/traininginitialdata/import/trainingContentCatalog/training-content-catalog.impex");
+		importImpexFile(context,"/traininginitialdata/import/trainingContentCatalog/training-content-catalog-employees.impex");
+		importImpexFile(context,"/traininginitialdata/import/trainingContentCatalog/training-content-catalog-sync-job.impex");
+
+		importImpexFile(context,"/traininginitialdata/import/trainingStores/training-store.impex");
+		importImpexFile(context,"/traininginitialdata/import/trainingStores/training-site.impex");
+
+		importImpexFile(context,"/traininginitialdata/import/electronicsContentCatalog/electronics-cms-content-add-google-to-footer.impex");
+		importImpexFile(context,"/traininginitialdata/import/electronicsContentCatalog/electronics-cms-content-update-our-bestselling-product.impex");
+		importImpexFile(context,"/traininginitialdata/import/electronicsContentCatalog/electronics-cms-content-add-deals-of-the-week.impex");
+		importImpexFile(context,"/traininginitialdata/import/electronicsContentCatalog/electronics-cms-content-add-banner-to-cart.impex");
+		importImpexFile(context,"/traininginitialdata/import/electronicsContentCatalog/electronics-cms-content-add-chat-gpt-to-my-account.impex");
+		importImpexFile(context,"/traininginitialdata/import/electronicsContentCatalog/electronics-cms-content-update-search-box.impex");
+		importImpexFile(context,"/traininginitialdata/import/electronicsContentCatalog/electronics-cms-content-add-training-category-to-category-table.impex");
 	}
 
 	public CoreDataImportService getCoreDataImportService()

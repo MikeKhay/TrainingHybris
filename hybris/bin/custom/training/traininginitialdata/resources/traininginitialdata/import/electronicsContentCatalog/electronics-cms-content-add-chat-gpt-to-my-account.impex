@@ -1,0 +1,24 @@
+$contentCatalog = electronicsContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Staged])[default = $contentCatalog:Staged]
+$productCatalog = electronicsProductCatalog
+$productCV = catalogVersion(catalog(id[default = $productCatalog]), version[default = 'Staged'])[unique = true, default = $productCatalog:Staged]
+$product = product(code, $productCV)
+$category = category(code, $productCV)
+$lang = en
+
+
+# CMS Link Components
+INSERT_UPDATE CMSLinkComponent; $contentCV[unique = true]; uid[unique = true]  ; name                  ; linkName[lang = $lang]; url                   ; &linkRef            ; &componentRef       ; target(code)[default = 'sameWindow']; $category; $product;
+                              ;                          ; TrainingChatGPTLink ; Training ChatGPT Link ; "Training ChatGPT"    ; "https://chatgpt.com" ; TrainingChatGPTLink ; TrainingChatGPTLink ; newWindow                           ;          ;         ;
+
+# children of above navigation nodes #
+INSERT_UPDATE CMSNavigationNode; uid[unique = true]     ; $contentCV[unique = true]; name                  ; &nodeRef               ; children(uid, $contentCV); links(&linkRef)
+                               ; TrainingChatGPTNavNode ;                          ; Training ChatGPT Page ; TrainingChatGPTNavNode ;                          ;
+
+# entries of the above navigation nodes ##
+INSERT_UPDATE CMSNavigationEntry; uid[unique = true]          ; $contentCV[unique = true]; name                                   ; navigationNode(&nodeRef); item(CMSLinkComponent.uid, CMSLinkComponent.$contentCV)
+                                ; TrainingChatGPTNavNodeEntry ;                          ; Training ChatGPT Navigation Node Entry ; TrainingChatGPTNavNode  ; TrainingChatGPTLink
+
+# children of FooterNavNode #
+INSERT_UPDATE CMSNavigationNode; uid[unique = true]; $contentCV[unique = true]; children(uid, $contentCV)[mode = append]
+                               ; MyAccountNavNode  ;                          ; TrainingChatGPTNavNode

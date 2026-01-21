@@ -143,8 +143,8 @@ def platform = platform {
             extName 'basecommercebackoffice'
             extName 'customerreview'
             extName 'payment'
-//            extName 'promotions'
-//            extName 'promotionsbackoffice'
+            extName 'promotions'
+            extName 'promotionsbackoffice'
             extName 'voucher'
             extName 'voucherbackoffice'
         // cds-integration
@@ -411,8 +411,8 @@ def platform = platform {
             extName 'yhacext'
             extName 'yvoid'
         // promotion-engine
-//            extName 'promotionenginebackoffice'
-//            extName 'promotionengineservices'
+            extName 'promotionenginebackoffice'
+            extName 'promotionengineservices'
         // rule-engine
 //            extName 'droolsruleengineservices'
 //            extName 'ordercalculation'
@@ -504,8 +504,15 @@ def platform = platform {
 //            extName 'xyformsstorefrontcommons' // deprecated
 //            extName 'xyformsweb'
 
-            // extName 'trainingcore'
-            // extName 'trainingaddon'
+
+        // Appears after ant modulegen
+//            extName 'trainingcore'
+//            extName 'trainingbackoffice'
+//            extName 'trainingfacades'
+//            extName 'trainingfulfilmentprocess'
+//            extName 'traininginitialdata'
+//            extName 'trainingstorefront'
+//            extName 'trainingtest'
     }
 
     addons {

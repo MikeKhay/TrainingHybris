@@ -1,0 +1,20 @@
+#
+# Create the Training BaseStore
+#
+
+$productCatalog = trainingProductCatalog
+$lang = en
+
+# Create Base Store
+INSERT_UPDATE BaseStore; uid[unique = true]; name[lang = $lang]; catalogs(id)    ; currencies(isocode); net   ; taxGroup(code); storelocatorDistanceUnit(code); defaultCurrency(isocode); languages(isocode); defaultLanguage(isocode); deliveryCountries(isocode); billingCountries(isocode); submitOrderProcessCode; pickupInStoreMode(code); customerAllowedToIgnoreSuggestions; paymentProvider; expressCheckoutEnabled; maxRadiusForPoSSearch; checkoutFlowGroup    ; createReturnProcessCode
+                       ; training          ; "Training Store"  ; $productCatalog ; USD                ; false ; us-taxes      ; km                            ; USD                     ; en                ; en                      ; US,GB,DE                  ; US,GB,DE                 ; order-process         ; BUY_AND_COLLECT        ; true                              ; Mockup         ; true                  ; 200                  ; defaultCheckoutGroup ; return-process
+
+
+
+INSERT_UPDATE BaseStore2DeliveryModeRel; source(uid)[unique = true]; target(code)[unique = true]
+                                       ; training                  ; premium-net
+                                       ; training                  ; standard-net
+                                       ; training                  ; premium-gross
+                                       ; training                  ; standard-gross
+                                       ; training                  ; pickup
+                                       ; training                  ; free-standard-shipping

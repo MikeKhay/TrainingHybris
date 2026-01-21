@@ -1,0 +1,22 @@
+#
+# Import the CMS Site configuration for the Training Store
+#
+$productCatalog = trainingProductCatalog
+$contentCatalog = trainingContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Staged])[default = $contentCatalog:Staged]
+$lang = en
+$siteUid = training
+$storeUid = training
+
+# Import config properties into impex macros
+UPDATE GenericItem[processor = de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor]; pk[unique = true]
+
+# Import modulegen config properties into impex macros
+$jarResource = $config-jarResource
+
+# Load the storefront context root config param
+$storefrontContextRoot = $config-storefrontContextRoot
+
+# Create CMS Site
+INSERT_UPDATE CMSSite; uid[unique = true]; name[lang = $lang]; locale[lang = $lang]; stores(uid); contentCatalogs(id); defaultCatalog(id); theme(code); channel(code); defaultLanguage(isoCode); urlPatterns                                                                                                                                                                                          ; active; previewURL                            ; urlEncodingAttributes; defaultPromotionGroup(Identifier)[default = electronicsPromoGrp]
+                     ; $siteUid          ; "Training Site"   ; en_US               ; $storeUid  ; $contentCatalog    ; $productCatalog   ; alpha      ; B2C          ; en                      ; (?i)^https?://[^/]+(/[^?]*)?\?(.*\&)?(site=$siteUid)(|\&.*)$,(?i)^https?://$siteUid\.[^/]+(|/.*|\?.*)$,(?i)^https?://api\.hybrisdev\.com(:[\d]+)?/rest/.*$,(?i)^https?://localhost(:[\d]+)?/rest/.*$ ; true  ; $storefrontContextRoot/?site=$siteUid ; storefront,language  ;
